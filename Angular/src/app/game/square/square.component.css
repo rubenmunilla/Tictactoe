@@ -10,3 +10,7 @@ button {
 .no-clickable {
 	cursor: not-allowed;
 }
+
+.winner {
+	background-color: green;
+}

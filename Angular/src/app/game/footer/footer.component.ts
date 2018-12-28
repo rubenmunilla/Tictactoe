@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class FooterComponent implements OnInit {
 
-	private _state$: BehaviorSubject<State>;
+  private _state$: BehaviorSubject<State>;
 
   constructor(stateService: StateService) { 
   	this._state$ = stateService.state$;

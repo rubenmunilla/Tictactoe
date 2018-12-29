@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StateService, State } from './../state.service';
 import { MyhttpService } from './../../myhttp.service';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-game',
@@ -17,12 +18,29 @@ export class GameComponent implements OnInit {
 
 	private _playerName: string;
 
+	private _myhttpservice: MyhttpService;
+
 	_handleSubmitClick() {
 		this._stateService.state.player_name = this._playerName;
 	}
 
+	_handleSaveClick() {
+		this._myhttpservice.postGame(this._stateService.state)
+		.subscribe(
+			data => {
+		      console.log("Response: ", data);
+			},
+			error => {
+			  console.error("Error saving game!");
+			  return Observable.throw(error);
+			}
+		 );
+	}
+
   constructor(route: ActivatedRoute, stateService: StateService, myhttpService: MyhttpService) {
-  	this._stateService = stateService;
+	this._stateService = stateService;
+	this._myhttpservice = myhttpService;
+
   	if (route.snapshot.data.continue) {
   		myhttpService.getSavedGame().subscribe((state:State) => {
   			stateService.state = state;
@@ -38,5 +56,4 @@ export class GameComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

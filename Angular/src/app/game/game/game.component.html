@@ -9,6 +9,9 @@
 <div *ngIf="_status == 'success' && (_stateService.state$ | async).player_name !== ''">
 	<app-header></app-header>
 	<app-board></app-board>
+	<form>
+      <input (click)="_handleSaveClick()" type="submit" value="Save"/>
+    </form>
 </div>
 
 <h3 *ngIf="_status !== 'success' && _status !== 'fetching'">Error getting state from server. The error was: {{ _status }}</h3>

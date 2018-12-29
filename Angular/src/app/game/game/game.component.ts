@@ -28,7 +28,8 @@ export class GameComponent implements OnInit {
 		this._myhttpservice.postGame(this._stateService.state)
 		.subscribe(
 			data => {
-		      console.log("Response: ", data);
+					console.log("Response: ", data);
+					this._stateService.updateLastSavedGame(data['uri']);
 			},
 			error => {
 			  console.error("Error saving game!");
@@ -42,15 +43,15 @@ export class GameComponent implements OnInit {
 	this._myhttpservice = myhttpService;
 
   	if (route.snapshot.data.continue) {
-  		myhttpService.getSavedGame().subscribe((state:State) => {
-  			stateService.state = state;
-  			this._status = 'success';
+			this._myhttpservice.getLatestSavedGame().subscribe((state:State) => {
+				this._stateService.updateState(state);
+				this._status = 'success';
   		}, error => {
   			this._status = error.statusText;
   		});
   	} else {
-  		stateService.reset();
-  		this._status = 'success';
+			this._stateService.reset();
+			this._status = 'success';
   	}
   }
 

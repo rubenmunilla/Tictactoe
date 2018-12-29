@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
-import { State } from './game/state.service';
+import { State , StateService } from './game/state.service';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
@@ -12,10 +12,15 @@ const httpOptions = {
 })
 export class MyhttpService {
 
-  constructor(private httpClient: HttpClient) { }
+  private _stateService: StateService;
 
-  getSavedGame () {
-  	return this.httpClient.get('https://api.myjson.com/bins/i216a');
+  constructor(private httpClient: HttpClient, stateService: StateService) {
+    this._stateService = stateService;
+   }
+
+   getLatestSavedGame () {
+    console.log("Last save: ",this._stateService.state.last_saved_game);
+  	return this.httpClient.get(this._stateService.state.last_saved_game);
   }
 
   postGame (state:State): Observable<Object> {

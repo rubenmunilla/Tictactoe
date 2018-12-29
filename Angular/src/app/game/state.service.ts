@@ -4,7 +4,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export interface State {
     turn: string,
     values: string[][],
-    player_name: string
+    player_name: string,
+    last_saved_game: string
 }
 
 @Injectable({
@@ -12,7 +13,7 @@ export interface State {
 })
 export class StateService {
 
-	private _state$: BehaviorSubject<State>;
+  private _state$: BehaviorSubject<State>;
 
   constructor() { 
 	  this._state$ = new BehaviorSubject({
@@ -22,7 +23,8 @@ export class StateService {
         ['-','-','-'],
         ['-','-','-']
       ],
-      player_name: '' 
+      player_name: '',
+      last_saved_game: 'https://api.myjson.com/bins/i216a' 
     });
   }
 
@@ -49,6 +51,7 @@ export class StateService {
   }
 
   reset() {
+    let uri = this.state.last_saved_game;
     this.state = {
       turn: 'PLAYERX',
       values: [
@@ -56,8 +59,18 @@ export class StateService {
         ['-','-','-'],
         ['-','-','-']
       ],
-      player_name: ''
+      player_name: '',
+      last_saved_game: uri
     };
   }
 
+  updateLastSavedGame (url: string) {
+    this.state.last_saved_game = url;
+  }
+
+  updateState (newstate: State) {
+    this.state.turn = newstate!.turn;
+    this.state.player_name = newstate!.player_name;
+    this.state.values = newstate!.values;
+  }
 }

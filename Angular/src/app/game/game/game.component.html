@@ -1,6 +1,6 @@
 <div *ngIf="_status == 'fetching'" class="loader"></div>
 
-<form *ngIf="(_stateService.state$ | async).player_name === ''">
+<form *ngIf="_status == 'success' && (_stateService.state$ | async).player_name === ''">
 	<label>Introduce Player Name:</label>
 	<input [(ngModel)]="_playerName" type="text" name="_playerName">
 	<input (click)="_handleSubmitClick()" type="submit" value="Submit"/>
@@ -10,8 +10,20 @@
 	<app-header></app-header>
 	<app-board></app-board>
 	<form>
+	  <label>Save Name:</label>
+	  <input [(ngModel)]="_saveName" type="text" name="_saveName" [class.saved]="_saveIcon">
       <input (click)="_handleSaveClick()" type="submit" value="Save"/>
     </form>
 </div>
 
-<h3 *ngIf="_status !== 'success' && _status !== 'fetching'">Error getting state from server. The error was: {{ _status }}</h3>
+<h3 *ngIf="_status !== 'success' && _status !== 'fetching' && _status !== 'list'">Error getting state from server. The error was: {{ _status }}</h3>
+
+<div *ngIf="_status === 'list'">
+  <h3>List of Saved Games</h3>
+  <div *ngIf="!_savesList?.length">No saves yet</div>
+  <ol>
+    <li *ngFor="let save of _savesList; index as i">
+      {{ save.name }} <input [routerLink]="['../continue/'+i]" type="button" value="Continue"/> <input (click)="_removeItem(save)" type="button" value="Delete"/>
+    </li>
+  </ol>
+</div>

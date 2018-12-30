@@ -26,9 +26,14 @@ const appRoutes: Routes = [
     data: {continue: true}
   },
   {
-    path: 'savedgames',
+    path: 'continue/:index',
     component: GameComponent,
     data: {continue: true}
+  },
+  {
+    path: 'savedgames',
+    component: GameComponent,
+    data: {list: true}
   },
   { path: '',
     redirectTo: '/index',

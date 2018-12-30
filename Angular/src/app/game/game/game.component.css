@@ -2,7 +2,7 @@ form {
   margin-top: 50px;
 }
 
-form input[type=submit] {
+form input[type=submit], input[type=button] {
   background: #0168b3;
   color: white;
   border-style: outset;
@@ -15,7 +15,7 @@ form input[type=submit] {
   cursor: pointer;
 }
 
-form input[type=submit]:hover {
+form input[type=submit]:hover, input[type=button]:hover {
   background-color: #07c;
   border-color: #005999;
   box-shadow: inset 0 1px 0 #3af;
@@ -44,4 +44,8 @@ form label {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.saved {
+  background-color: green;
 }

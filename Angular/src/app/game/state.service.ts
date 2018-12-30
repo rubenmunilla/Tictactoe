@@ -5,7 +5,13 @@ export interface State {
     turn: string,
     values: string[][],
     player_name: string,
-    last_saved_game: string
+    last_saved_game: string,
+    savesList: SaveItem[]
+}
+
+export interface SaveItem {
+	name: string,
+	uri: string
 }
 
 @Injectable({
@@ -24,7 +30,8 @@ export class StateService {
         ['-','-','-']
       ],
       player_name: '',
-      last_saved_game: 'https://api.myjson.com/bins/i216a' 
+      last_saved_game: 'https://api.myjson.com/bins/i216a',
+      savesList: []
     });
   }
 
@@ -52,6 +59,7 @@ export class StateService {
 
   reset() {
     let uri = this.state.last_saved_game;
+    let saves = this.state.savesList;
     this.state = {
       turn: 'PLAYERX',
       values: [
@@ -60,7 +68,8 @@ export class StateService {
         ['-','-','-']
       ],
       player_name: '',
-      last_saved_game: uri
+      last_saved_game: uri,
+      savesList: saves
     };
   }
 
@@ -72,5 +81,14 @@ export class StateService {
     this.state.turn = newstate!.turn;
     this.state.player_name = newstate!.player_name;
     this.state.values = newstate!.values;
+  }
+
+  addSave (save: SaveItem) {
+    this.state.savesList.push(save);
+  }
+
+  removeSave (save: SaveItem) {
+    let index = this.state.savesList.indexOf(save);
+    this.state.savesList.splice(index,1);
   }
 }

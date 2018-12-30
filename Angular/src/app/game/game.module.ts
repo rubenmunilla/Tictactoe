@@ -6,12 +6,14 @@ import { BoardComponent } from './board/board.component';
 import { SquareComponent } from './square/square.component';
 import { StateService } from './state.service';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   declarations: [GameComponent, HeaderComponent, BoardComponent, SquareComponent],
   exports: [GameComponent],

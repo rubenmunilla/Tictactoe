@@ -28,4 +28,10 @@ export class MyhttpService {
 
     return response;
   }
+
+  getSavedGame(uri: string): Observable<Object> {
+    let response = this.httpClient.get(uri);
+
+    return response;
+  }
 }

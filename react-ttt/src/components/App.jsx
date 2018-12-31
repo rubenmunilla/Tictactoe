@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header.jsx';
 import Board from './Board.jsx';
 import Footer from './Footer.jsx';
+import Buttons from './Buttons.jsx';
 import { PageHeader } from 'react-bootstrap';
 
 const PLAYERX = "Player 1 - Xs";
@@ -24,6 +25,7 @@ export default class App extends React.Component {
         movements: 0,
     };
     this.appClick = this.appClick.bind(this);
+    this.appReset = this.appReset.bind(this);
     }
 
     appClick(rowNumber, columnNumber) {
@@ -38,6 +40,18 @@ export default class App extends React.Component {
         });
     }
 
+    appReset() {
+      this.setState({
+        turn: PLAYERX,
+        values: [
+          ['-', '-', '-'],
+          ['-', '-', '-'],
+          ['-', '-', '-'],
+          ],
+        movements: 0,
+      });
+    }
+
   render() {
     let text = "Turn of " + this.state.turn;
     let movements = "Number of movements: " + this.state.movements;
@@ -50,6 +64,7 @@ export default class App extends React.Component {
         <Header text={text}/>
         <Board values={this.state.values}  appClick={this.appClick}/>
         <Footer text={movements}/>
+        <Buttons appReset={this.appReset}/>
       </div>
     );
 }

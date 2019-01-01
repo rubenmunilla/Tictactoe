@@ -11,8 +11,6 @@ class Game extends React.Component {
     this.state = {
       player_name: "",
       save_name: "",
-      url: "",
-      save_list: []
     };
     this.appClick = this.appClick.bind(this);
     this.handlePlayerInputChange = this.handlePlayerInputChange.bind(this);
@@ -89,7 +87,6 @@ function mapStateToProps(state) {
         fetch: state.fetch,
         player_name: state.player_name,
         save_name: state.save_name,
-        url: state.url,
         save_list: state.save_list,
         last_saved_game: state.last_saved_game
     };

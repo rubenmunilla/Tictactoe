@@ -81,7 +81,7 @@ export function saveGame(state, props) {
       .then(res => res.json())
       .then(json => {
         console.log("Response Received: ", json);
-        dispatch(fetchPOSTStateSuccess(json));
+        dispatch(fetchPOSTStateSuccess(json, state.save_name));
         return json;
       })
       .catch(error => {
@@ -91,12 +91,22 @@ export function saveGame(state, props) {
   };
 }
 
-export function fetchPOSTStateSuccess(json_received) {
+export function fetchPOSTStateSuccess(json_received, save_name) {
   return {
     type: 'FETCH_POST_STATE_SUCCESS',
-    state: json_received
+    state: json_received,
+    save_name: save_name
   };
 }
+
+export function deleteSavedGame(savedGame) {
+  return {
+    type: 'DELETE_SAVED_GAME',
+    state: savedGame
+  };
+}
+
+
 
 // Handle HTTP errors since fetch won't.
 function handleErrors(response) {

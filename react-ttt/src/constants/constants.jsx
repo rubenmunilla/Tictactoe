@@ -11,3 +11,4 @@ export const FETCH = {
   error: null
 }
 export const API = "https://api.myjson.com/bins/i216a";
+export const API_POST = "https://api.myjson.com/bins";

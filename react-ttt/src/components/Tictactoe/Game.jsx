@@ -1,16 +1,25 @@
 import React from 'react';
 import Header from './Header.jsx';
 import Board from './Board.jsx';
+import Buttons from './Buttons.jsx';
 import { connect } from 'react-redux';
-import { playPosition, fetchState, newPlayer, resetPlayer } from './../../reducers/actions';
+import { playPosition, fetchState, newPlayer, resetPlayer, saveGame } from './../../reducers/actions';
 
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {player_name: ""};
+    this.state = {
+      player_name: "",
+      save_name: "",
+      url: "",
+      save_list: [],
+      last_saved_game: "https://api.myjson.com/bins/i216a"
+    };
     this.appClick = this.appClick.bind(this);
     this.handlePlayerInputChange = this.handlePlayerInputChange.bind(this);
     this.handlePlayerSubmit = this.handlePlayerSubmit.bind(this);
+    this.handleSaveGameSubmit = this.handleSaveGameSubmit.bind(this);
+    this.handleSaveGameNameChange = this.handleSaveGameNameChange.bind(this);
   }
   appClick(rowNumber, columnNumber) {
       this.props.dispatch(playPosition(rowNumber, columnNumber, this.props.turn, this.props.values));
@@ -31,6 +40,15 @@ class Game extends React.Component {
       this.props.dispatch(resetPlayer());
     }
   }
+  handleSaveGameNameChange(event){
+    this.setState({save_name: event.target.value});
+  }
+  handleSaveGameSubmit(event) {
+    console.log('New save game: ' + this.state.save_name);
+    event.preventDefault();
+    this.props.dispatch(saveGame(this.state, this.props));
+  }
+
   render() {
     if(this.props.fetch.fetching){
       return <div className="loader"></div>;
@@ -45,10 +63,12 @@ class Game extends React.Component {
             <div>
               <Header text={text} welcome_text={welcome_text}/>
               <Board values={this.props.values}  appClick={this.appClick} />
+              <Buttons handleSaveGameSubmit={this.handleSaveGameSubmit} handleSaveGameNameChange={this.handleSaveGameNameChange} state={this.state}/>
             </div>
           );
       } else {
-          return (<header className="header">
+          return (
+          <header className="header">
             <form onSubmit={this.handlePlayerSubmit}>
               <label>
                 Introduce Player Name:
@@ -68,7 +88,11 @@ function mapStateToProps(state) {
         values: state.values,
         turn: state.turn,
         fetch: state.fetch,
-        player_name: state.player_name
+        player_name: state.player_name,
+        save_name: state.save_name,
+        url: state.url,
+        save_list: state.save_list,
+        last_saved_game: state.last_saved_game
     };
 }
 export default connect(mapStateToProps)(Game);

@@ -9,7 +9,7 @@ function playerReducer(state = "", action) {
     case 'RESET_PLAYER':
       return action.player_name; 
     default:
-        return state;
+      return state;
     }
 }
 

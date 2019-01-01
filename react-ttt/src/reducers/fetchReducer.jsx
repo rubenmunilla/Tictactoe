@@ -17,6 +17,11 @@ function fetchReducer(state = FETCH, action) {
       newState.fetching = false;
       newState.error = action.error;
       return newState;
+    case 'FETCH_POST_STATE_SUCCESS':
+      newState = JSON.parse(JSON.stringify(state));
+      newState.fetching = false;
+      newState.finished = true;
+      return newState;
     default:
         return state;
     }

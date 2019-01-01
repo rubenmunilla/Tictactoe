@@ -1,6 +1,5 @@
 import {API} from '../constants/constants';
 
-
 export function playPosition(x, y, turn, values) {
     return{
         type: 'PLAY_POSITION',
@@ -10,7 +9,6 @@ export function playPosition(x, y, turn, values) {
         values: values
     };
 }
-
 
 export function fetchState() {
   return dispatch => {
@@ -52,6 +50,13 @@ export function newPlayer(player_name) {
   return {
     type: 'NEW_PLAYER',
     player_name: player_name
+  };
+}
+
+export function resetPlayer() {
+  return {
+    type: 'RESET_PLAYER',
+    player_name : ''
   };
 }
 

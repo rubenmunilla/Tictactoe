@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header.jsx';
 import Board from './Board.jsx';
 import { connect } from 'react-redux';
-import { playPosition, fetchState, newPlayer } from './../../reducers/actions';
+import { playPosition, fetchState, newPlayer, resetPlayer } from './../../reducers/actions';
 
 class Game extends React.Component {
   constructor(props) {
@@ -27,6 +27,8 @@ class Game extends React.Component {
     console.log("componentDidMount");
     if(this.props.continue===true){
       this.props.dispatch(fetchState());
+    } else {
+      this.props.dispatch(resetPlayer());
     }
   }
   render() {

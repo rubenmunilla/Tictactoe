@@ -9,6 +9,8 @@ function gameReducer(state = VALUES, action) {
         return newState;
     case 'FETCH_STATE_SUCCESS':
         return action.state.values;
+    case 'RESET_PLAYER':
+        return VALUES; 
     default:
         return state;
     }

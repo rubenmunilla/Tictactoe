@@ -1,4 +1,4 @@
-import {API, API_POST} from '../constants/constants';
+import {API_POST} from '../constants/constants';
 
 export function playPosition(x, y, turn, values) {
     return{
@@ -10,10 +10,11 @@ export function playPosition(x, y, turn, values) {
     };
 }
 
-export function fetchState() {
+export function fetchState(last_saved) {
+  console.log(last_saved);
   return dispatch => {
     dispatch(fetchStateBegin());
-    return fetch(API)
+    return fetch(last_saved)
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {
@@ -67,9 +68,7 @@ export function saveGame(state, props) {
       values: props.values,
       player_name: state.player_name
     };
-    console.log("start post", state_to_send);
     dispatch(fetchStateBegin());
-
     return fetch(API_POST,
       {
         method: 'POST',

@@ -12,8 +12,7 @@ class Game extends React.Component {
       player_name: "",
       save_name: "",
       url: "",
-      save_list: [],
-      last_saved_game: "https://api.myjson.com/bins/i216a"
+      save_list: []
     };
     this.appClick = this.appClick.bind(this);
     this.handlePlayerInputChange = this.handlePlayerInputChange.bind(this);
@@ -35,7 +34,7 @@ class Game extends React.Component {
   componentDidMount(){
     console.log("componentDidMount");
     if(this.props.continue===true){
-      this.props.dispatch(fetchState());
+      this.props.dispatch(fetchState(this.props.last_saved_game));
     } else {
       this.props.dispatch(resetPlayer());
     }

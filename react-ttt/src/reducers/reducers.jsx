@@ -3,12 +3,14 @@ import gameReducer from './gameReducer';
 import turnReducer from './turnReducer';
 import fetchReducer from './fetchReducer';
 import playerReducer from './playerReducer';
+import lastSavedReducer from './lastSavedReducer';
 
 const GlobalState = combineReducers({
     turn: turnReducer,
     values: gameReducer,
     fetch: fetchReducer,
-    player_name: playerReducer
+    player_name: playerReducer,
+    last_saved_game: lastSavedReducer
 });
 
 export default GlobalState;

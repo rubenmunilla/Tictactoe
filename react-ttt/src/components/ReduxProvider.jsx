@@ -14,7 +14,7 @@ const history = createBrowserHistory();
 export default class ReduxProvider extends React.Component {
     constructor(props) {
         super(props);
-        this.initialState = {values: VALUES, turn: PLAYERX};
+        this.initialState = {values: VALUES, turn: PLAYERX, last_saved_game: "https://api.myjson.com/bins/i216a"};
         this.store = createStore(
           connectRouter(history)(GlobalState), // new root reducer with router state
           this.initialState,

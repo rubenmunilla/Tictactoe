@@ -10,7 +10,8 @@ export default class Main extends React.Component {
           <section>
             <Route exact path='/' component={Home}/>
             <Route path='/new' component={Game}/>
-            <Route path='/continue' render={()=> <Game continue={true}/>}/>
+            <Route exact path='/continue' render={()=> <Game continue={true}/>}/>
+            <Route path='/continue/:index' render={(props)=> <Game continue={true} index={props.match.params.index}/>}/>
             <Route path='/saved' component={SavedGames}/>
           </section>
         );

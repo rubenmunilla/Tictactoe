@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import { deleteSavedGame } from './../reducers/actions';
+import { Link } from 'react-router-dom';
 
 export class SavedGames extends React.Component {
     constructor(props) {
@@ -18,14 +19,15 @@ export class SavedGames extends React.Component {
         for (let i = 0; i < this.props.save_list.length; i++) {
           let row = [];
           row.push(<td>{this.props.save_list[i].name}</td>);
-          row.push(<td><Button bsStyle="success" type="button">Continue</Button></td>);
+          row.push(<td><Link to={'../continue/'+i}><Button bsStyle="success" type="button" >Continue</Button></Link></td>);
           row.push(<td><Button bsStyle="danger" type="button" onClick={() => {this.deleteItem(this.props.save_list[i])}}>Delete</Button></td>);
           table.push(<tr>{row}</tr>);
         }
         return table;
       }
     render() {
-        return(
+        if(this.props.save_list.length>0){
+            return(
               <div>
                 <h3>List of Saved Games</h3>
                 <Table>
@@ -34,7 +36,15 @@ export class SavedGames extends React.Component {
                   </tbody>
                 </Table>
               </div>
-        )
+            )
+        } else {
+            return(
+            <div>
+                <h3>List of Saved Games</h3>
+                <div>No saves yet</div>
+            </div>
+            )
+        }
     }
 }
 

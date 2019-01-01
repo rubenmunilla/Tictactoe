@@ -32,7 +32,11 @@ class Game extends React.Component {
   componentDidMount(){
     console.log("componentDidMount");
     if(this.props.continue===true){
-      this.props.dispatch(fetchState(this.props.last_saved_game));
+      if(this.props.index>=0) {
+        this.props.dispatch(fetchState(this.props.save_list[this.props.index].url));
+      } else {
+        this.props.dispatch(fetchState(this.props.last_saved_game));
+      }
     } else {
       this.props.dispatch(resetPlayer());
     }
